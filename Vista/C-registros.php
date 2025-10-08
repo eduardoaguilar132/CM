@@ -7,7 +7,7 @@
         <meta name="author" content="" />
         <title>Bienvenido</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="Recursos/assets/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="../Recursos/assets/favicon.ico" />
         <!-- Custom Google font-->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
             <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
@@ -16,7 +16,8 @@
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="Recursos/css/styles.css" rel="stylesheet" />
+        <link href="../Recursos/css/styles.css" rel="stylesheet" />
+       
         <style>
   canvas {
     border: 2px solid #000;
@@ -39,97 +40,145 @@
             <!-- Page Content-->
             <div class="container px-10 my-10">
                 <div class="text-center mb-10">
-                    <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Solicitud</span></h1>
+                    <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Solicitudes </span></h1>
                 </div>
                 <div class="row gx-5 justify-content-center">
-                    <div class="col-lg-11 col-xl-9 col-xxl-8">
+                    <div class="col-lg-15 col-xl-15 col-xxl-15">
+                                
+
+<div class="body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover js-exportable dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Id de la solicitud</th>
+                                            <th>Estatus</th>
+                                            <th>Numero de Control interno</th>
+                                            <th>Empresa </th>
+                                            <th>Nombre</th>
+                                            <th>Area</th>
+                                            <th>Puesto</th>
+                                            <th>Nombre del Documento</th>
+                                            <th>Fecha</th>
+                                            <th>Tipo accion</th>
+                                            <th>Version Anterior</th>
+                                            <th>Version a la que Cambia</th>
+                                            <th>Razon</th> 
+                                            <th>Revision</th>
+                                            <th>Autorizacion</th>
+                                            <th>Reporte Pdf</th>
+                                           
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Id de la solicitud</th>
+                                            <th>Estatus</th>
+                                            <th>Numero de Control interno</th>
+                                            <th>Empresa </th>
+                                            <th>Nombre</th>
+                                            <th>Area</th>
+                                            <th>Puesto</th>
+                                            <th>Nombre del Documento</th>
+                                            <th>Fecha</th>
+                                            <th>Tipo accion</th>
+                                            <th>Version Anterior</th>
+                                            <th>Version a la que Cambia</th>
+                                            <th>Razon</th>
+                                            <th>Revision</th>
+                                            <th>Autorizacion</th>
+                                            <th>Reporte Pdf</th>
+
+                                           
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <?php
+require_once "../Controlador/conexion.php";
+$conexion = conectar_db();
+
+$query = "SELECT * FROM solicitud";
+$consulta1 = $conexion->query($query);
+
+while ($fila = $consulta1->fetch_assoc()) {
+
+    // Determinar texto y color de fondo según el estatus
+    $estatus_texto = "";
+    $bg_color = "";
+
+    switch ($fila['Estatus']) {
+        case 0:
+            $estatus_texto = "Abierto";
+            $bg_color = "bg-danger"; // rojo
+            break;
+        case 1:
+            $estatus_texto = "En proceso";
+            $bg_color = "bg-warning"; // amarillo
+            break;
+        case 2:
+            $estatus_texto = "Cerrado";
+            $bg_color = "bg-success"; // verde
+            break;
+        default:
+            $estatus_texto = "Desconocido";
+            $bg_color = "bg-secondary"; // gris
+            break;
+    }
+
+    // Determinar texto para TA
+    switch ($fila['TA']) {
+        case 1:
+            $tipo_accion = "Creación";
+            break;
+        case 2:
+            $tipo_accion = "Modificación";
+            break;
+        case 3:
+            $tipo_accion = "Eliminación";
+            break;
+        default:
+            $tipo_accion = "Desconocido";
+            break;
+    }
+
+    echo "<tr>
+   
+         <td>{$fila['IdSol']}</td>
+        <td class='$bg_color text-dark fw-bold text-center'>{$estatus_texto}</td>
+        <td>{$fila['NC']}</td>
+        <td>{$fila['Empresa']}</td>
+        <td>{$fila['Ns']}</td>
+        <td>{$fila['Area']}</td>
+        <td>{$fila['Ps']}</td>
+        <td>{$fila['ND']}</td>
+        <td>{$fila['FechaS']}</td>
+        <td>{$tipo_accion}</td>
+        <td>{$fila['VA']}</td>
+        <td>{$fila['VC']}</td>
+        <td>{$fila['Razon']}</td>
+        <td align='center'>                
+        <a href='.php?Id=".$fila['IdSol']."'><button type='button' class='btn btn-success'>Revision</button></a>
+        </td>
+        <td align='center'>                
+        <a href='.php?Id=".$fila['IdSol']."'><button type='button' class='btn btn-success'>Autorizacion</button></a>
+        </td>
+        <td align='center'>                
+        <a href='.php?Id=".$fila['IdSol']."'><button type='button' class='btn btn-success'>Formato PDF</button></a>
+        </td>
+        
+    </tr>";
+}
+
+?>
 
 
-                        <!-- Experience Section-->
-                        <section>
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h2 class="text-primary fw-bolder mb-0"X>Alta</h2>
+                                    </tbody>
+                                </table>
+                                 
                             </div>
+                        </div>
 
-
-                            <!-- Experience Card 1-->
-                            <div class="card shadow border-0 rounded-4 mb-10">
-                                <div class="card-body">
-                                    <div class="row align-items-center gx-15">
-                                       <div class="body">
-                                            <form id="formFirma" action="../modelo/A-ManttoHSQL.php" method="POST">
-                                                <div class="row mb-3">
-                                                        <div class="col-md-6">
-                                                            <label for="nombre" class="form-label">Nombre del solicitante:</label>
-                                                            <input type="text" name="nombre" class="form-control" id="nombre" >
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label for="area" class="form-label">Puesto:</label>
-                                                            <input type="text" name="puesto" class="form-control" id="area" >
-                                                        </div>
-                                                          <div class="col-md-3">
-                                                            <label for="fecha" class="form-label">Fecha de Solicitud:</label>
-                                                            <input  type="date" name="fecha" class="form-control"  id="fecha" name="fecha">
-                                                        </div>
-                                                    <div class="row mb-6">
-                                                        <div class="col-md-15">
-                                                            <div>
-                                                                <label class="form-label">Tipo de Accion:</label>
-                                                                <br>
-                                                                <div class="form-check form-check-inline">
-                                                                    <input type="radio" name="r1" class="form-check-input" id="r1c" value="1">
-                                                                    <label for="r1c" class="form-check-label">Creacion de Documento</label>
-                                                                </div>
-                                                                <div class="form-check form-check-inline">
-                                                                    <input type="radio" name="r1" class="form-check-input" id="r1m" value="2"
-                                                                        checked>
-                                                                    <label for="r1m" class="form-check-label">Modificacion de Documento</label>
-                                                                </div>
-                                                                <div class="form-check form-check-inline">
-                                                                    <input type="radio" name="r1" class="form-check-input" id="r1e" value="3"
-                                                                        checked>
-                                                                    <label for="r1e" class="form-check-label">Eliminacion de Documento</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                         <div class="col-md-6">
-                                                            <label for="ver1" class="form-label">Version actual</label>
-                                                            <input type="text" name="ver1" class="form-control" id="ver1" >
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label for="ver2" class="form-label">Version a la que cambia:</label>
-                                                            <input type="text" name="ver2" class="form-control" id="ver2" >
-                                                        </div>
-                                                        <div class="col-md-15">
-                                                            <label for="razonm" class="form-label">Razon del cambio o creacion del documento:</label>
-                                                            <textarea name="razonm" rows="5" class="form-control" cols="10" ></textarea>
-                                                        </div>
-
-                                                         <div >
-                                                            <label class="form-check-label">Firma de usuario</label>
-                                                            <canvas id="canvasFirma" width="500" height="200"></canvas>
-                                                            <input type="hidden" name="firma" id="firmaInput">
-                                                            <button type="button" onclick="limpiarCanvas()">Limpiar</button>
-                                                         </div>
-                    
-                                                        <div>
-                                                            <br>
-                                                            <button type="submit"  class="btn btn-primary " >generar reporte</button>
-                                                        </div>
-
-                  
-                                                    </div>
-                                                </div>
-                                            </form>
-                                       </div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                          
-                                </div>
-                            </div>
-                        </section>
+                        
                     </div>
                 </div>
             </div>
@@ -152,6 +201,41 @@
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
+        <script src="../Recursos/js/scripts.js"></script>
     </body>
+    <!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- DataTables -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+<!-- Extensiones para exportar -->
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+
+<!-- Inicialización -->
+<script>
+$(document).ready(function() {
+    $('.dataTable').DataTable({
+        dom: 'Bfrtip', // Muestra botones arriba
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
+});
+</script>
+
 </html>
+
+
+
+
+
+
+

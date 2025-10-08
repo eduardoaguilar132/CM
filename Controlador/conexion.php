@@ -1,4 +1,5 @@
 <?php
+
 function conectar_db(){
 $usr = "root";
 $pw = "";
