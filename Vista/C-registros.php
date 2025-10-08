@@ -157,10 +157,10 @@ while ($fila = $consulta1->fetch_assoc()) {
         <td>{$fila['VC']}</td>
         <td>{$fila['Razon']}</td>
         <td align='center'>                
-        <a href='.php?Id=".$fila['IdSol']."'><button type='button' class='btn btn-success'>Revision</button></a>
+        <a href='A-revision.php?Id=".$fila['IdSol']."'><button type='button' class='btn btn-success'>Revision</button></a>
         </td>
         <td align='center'>                
-        <a href='.php?Id=".$fila['IdSol']."'><button type='button' class='btn btn-success'>Autorizacion</button></a>
+        <a href='A-autorizacion.php?Id=".$fila['IdSol']."'><button type='button' class='btn btn-success'>Autorizacion</button></a>
         </td>
         <td align='center'>                
         <a href='.php?Id=".$fila['IdSol']."'><button type='button' class='btn btn-success'>Formato PDF</button></a>

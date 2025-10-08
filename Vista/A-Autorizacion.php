@@ -44,7 +44,7 @@
             <!-- Page Content-->
             <div class="container px-10 my-10">
                 <div class="text-center mb-10">
-                    <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Revision</span></h1>
+                    <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Autorizacion</span></h1>
                 </div>
                 <div class="row gx-5 justify-content-center">
                     <div class="col-lg-11 col-xl-9 col-xxl-8">
@@ -53,7 +53,7 @@
                         <!-- Experience Section-->
                         <section>
                             <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h2 class="text-primary fw-bolder mb-0"X>Firma de Revision.</h2>
+                                <h2 class="text-primary fw-bolder mb-0"X>Firma de Autorizacion.</h2>
                             </div>
 
 
@@ -64,10 +64,6 @@
                                        <div class="body">
                                             <form id="formFirma" action="../modelo/A-Solicitud.php" method="POST">
                                                 <div class="row mb-3">
-                                                         <div class="col-md-6">
-                                                            <label for="nombre" class="form-label">Numero de Identificacion Interna:</label>
-                                                            <input type="text" name="nombre" class="form-control" id="nombre" >
-                                                        </div>
                                                         <div class="col-md-6">
                                                             <label for="nombre" class="form-label">Nombre de quien revisa:</label>
                                                             <input type="text" name="nombre" class="form-control" id="nombre" >
@@ -82,7 +78,7 @@
                                                         </div>
                                                         <div class="col-md-15">
                                                             <div>
-                                                            <label class="form-label">Procede la solicitud:</label>
+                                                            <label class="form-label">Procede la solicitud</label>
                                                                 <br>
                                                                 <div class="form-check form-check-inline">
                                                                     <input type="radio" name="procede" class="form-check-input" id="Procede" value="1">
@@ -94,6 +90,10 @@
                                                                     <label for="Serviplan" class="form-check-label">No Procede</label>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                         <div class="col-md-15">
+                                                            <label for="razonm" class="form-label">En caso de no proceder la solicitud propuesta, indique la razon:</label>
+                                                            <textarea name="razonm" rows="5" class="form-control" cols="10" ></textarea>
                                                         </div>
 
                                                          <div >
