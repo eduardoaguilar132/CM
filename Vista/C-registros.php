@@ -5,9 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Personal - Start Bootstrap Template</title>
+        <title>Bienvenido</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="../Recursos/assets/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="Recursos/assets/favicon.ico" />
         <!-- Custom Google font-->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
             <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
@@ -16,7 +16,7 @@
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="../Recursos/css/styles.css" rel="stylesheet" />
+        <link href="Recursos/css/styles.css" rel="stylesheet" />
         <style>
   canvas {
     border: 2px solid #000;
@@ -33,12 +33,7 @@
                 <div class="container px-5">
                     <a class="navbar-brand" href="../index.html"><span class="fw-bolder text-primary">PLANELEC</span></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
-                            <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
-                            
-                        </ul>
-                    </div>
+                    
                 </div>
             </nav>
             <!-- Page Content-->

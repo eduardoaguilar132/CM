@@ -1,0 +1,19 @@
+<?php
+function conectar_db(){
+$usr = "root";
+$pw = "";
+$server = "localhost";
+$bd = "cm";
+
+  $conexion = new mysqli($server, $usr, $pw, $bd);
+  if ($conexion->connect_error) {
+      die("Error en la conexión: " . $conexion->connect_error);
+  }
+  $conexion->set_charset("utf8");
+  return $conexion;
+}
+
+
+
+
+?>
