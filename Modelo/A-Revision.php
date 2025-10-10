@@ -2,13 +2,13 @@
 include("../Controlador/conexion.php");
 $conexion = conectar_db();
 
-$IdSol = $_POST["IdSol"];
-$NR    = $_POST["nombre"];
-$AreaR = $_POST["area"];
-$PR    = $_POST["puesto"];
-$PRev  = $_POST["pr"];
-$Nci   = $_POST["nci"];
-$FirmaS = $_POST["firma"];
+$IdSol = $_POST['IdSol'];
+$NR    = $_POST['nombre'];
+$AreaR = $_POST['area'];
+$PR    = $_POST['puesto'];
+$PRev  = $_POST['pr'];
+$Nci   = $_POST['nci'];
+$FirmaS = $_POST['firma'];
 
 // Convertir firma base64 a binario
 $firmaBinaria = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $FirmaS));
