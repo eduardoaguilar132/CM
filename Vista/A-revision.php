@@ -61,17 +61,23 @@
                             <div class="card shadow border-0 rounded-4 mb-10">
                                 <div class="card-body">
                                     <div class="row align-items-center gx-15">
-                                       <div class="body">
-                                            <form id="formFirma" action="../modelo/A-Solicitud.php" method="POST">
+                                        <?php
+                                        error_reporting(0);
+
+                                        
+                                        $IdSol=$_GET["Id"];
+                                        
+                                      echo ' <div class="body">
+                                            <form id="formFirma" action="../modelo/A-Revision.php" method="POST">
                                                 <div class="row mb-3">
-                                                         <div class="col-md-6">
-                                                            <label for="nombre" class="form-label">Numero de Identificacion Interna:</label>
-                                                            <input type="text" name="nombre" class="form-control" id="nombre" >
-                                                        </div>
+                                               <div class="col-md-6">
+                                                    <label for="IdSol" class="form-label">IDSistema:</label>
+                                                    <input type="text" name="IdSol" class="form-control" id="IdSol" value="'.$IdSol.'" readonly>
+                                                </div>
                                                         <div class="col-md-6">
                                                             <label for="nombre" class="form-label">Nombre de quien revisa:</label>
                                                             <input type="text" name="nombre" class="form-control" id="nombre" >
-                                                        </div>
+                                                        </div> 
                                                         <div class="col-md-6">
                                                             <label for="area" class="form-label">Area:</label>
                                                             <input type="text" name="area" class="form-control" id="area" >
@@ -85,15 +91,19 @@
                                                             <label class="form-label">Procede la solicitud:</label>
                                                                 <br>
                                                                 <div class="form-check form-check-inline">
-                                                                    <input type="radio" name="procede" class="form-check-input" id="Procede" value="1">
-                                                                    <label for="Procede" class="form-check-label">Procede</label>
+                                                                    <input type="radio" name="pr" class="form-check-input" id="procede" value="1">
+                                                                    <label for="procede" class="form-check-label">Procede</label>
                                                                 </div>
                                                                 <div class="form-check form-check-inline">
-                                                                    <input type="radio" name="procede" class="form-check-input" id="Procede" value="0"
+                                                                    <input type="radio" name="pr" class="form-check-input" id="nprocede" value="0"
                                                                         checked>
-                                                                    <label for="Serviplan" class="form-check-label">No Procede</label>
+                                                                    <label for="nprocede" class="form-check-label">No Procede</label>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label for="nci" class="form-label">Numero de Identificacion Interna:</label>
+                                                            <input type="text" name="nci" class="form-control" id="nci" >
                                                         </div>
 
                                                          <div >
@@ -112,7 +122,8 @@
                                                     </div>
                                                 </div>
                                             </form>
-                                       </div>
+                                       </div> ';
+                                       ?>
                                         
                                     </div>
                                 </div>

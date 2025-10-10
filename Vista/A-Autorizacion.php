@@ -61,13 +61,25 @@
                             <div class="card shadow border-0 rounded-4 mb-10">
                                 <div class="card-body">
                                     <div class="row align-items-center gx-15">
+                                        <?php
+                                        error_reporting(0);
+
+                                        
+                                        $IdSol=$_GET["Id"];
+                                        
+                                      echo '
                                        <div class="body">
-                                            <form id="formFirma" action="../modelo/A-Solicitud.php" method="POST">
+                                            <form id="formFirma" action="../modelo/A-Autorizacion.php" method="POST">
                                                 <div class="row mb-3">
                                                         <div class="col-md-6">
-                                                            <label for="nombre" class="form-label">Nombre de quien revisa:</label>
+                                                            <label for="IdSol" class="form-label">IdSistema:</label>
+                                                            <input type="text" name="IdSol" class="form-control" id="IdSol"  value="'.$IdSol.'">
+                                                        </div>
+                                                <div class="col-md-6">
+                                                            <label for="nombre" class="form-label">Nombre de quien autoriza:</label>
                                                             <input type="text" name="nombre" class="form-control" id="nombre" >
                                                         </div>
+                                                
                                                         <div class="col-md-6">
                                                             <label for="area" class="form-label">Area:</label>
                                                             <input type="text" name="area" class="form-control" id="area" >
@@ -81,13 +93,13 @@
                                                             <label class="form-label">Procede la solicitud</label>
                                                                 <br>
                                                                 <div class="form-check form-check-inline">
-                                                                    <input type="radio" name="procede" class="form-check-input" id="Procede" value="1">
+                                                                    <input type="radio" name="Procede" class="form-check-input" id="Procede" value="1">
                                                                     <label for="Procede" class="form-check-label">Procede</label>
                                                                 </div>
                                                                 <div class="form-check form-check-inline">
-                                                                    <input type="radio" name="procede" class="form-check-input" id="Procede" value="0"
+                                                                    <input type="radio" name="Procede" class="form-check-input" id="NoProcede" value="0"
                                                                         checked>
-                                                                    <label for="Serviplan" class="form-check-label">No Procede</label>
+                                                                    <label for="NoProcede" class="form-check-label">No Procede</label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -113,6 +125,8 @@
                                                 </div>
                                             </form>
                                        </div>
+                                       ';
+                                       ?>
                                         
                                     </div>
                                 </div>
