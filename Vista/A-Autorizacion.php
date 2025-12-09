@@ -1,3 +1,11 @@
+ <?php
+session_start();
+
+if (!isset($_SESSION['usu'])) {
+    header("Location: ../index.html");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -7,7 +15,7 @@
         <meta name="author" content="" />
         <title>Personal - Start Bootstrap Template</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="../Recursos/assets/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="Recursos/images/plan.png" />
         <!-- Custom Google font-->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
             <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
@@ -69,24 +77,24 @@
                                         
                                       echo '
                                        <div class="body">
-                                            <form id="formFirma" action="../modelo/A-Autorizacion.php" method="POST">
+                                            <form id="formFirma" action="../Modelo/A-Autorizacion.php" method="POST">
                                                 <div class="row mb-3">
                                                         <div class="col-md-6">
-                                                            <label for="IdSol" class="form-label">IdSistema:</label>
-                                                            <input type="text" name="IdSol" class="form-control" id="IdSol"  value="'.$IdSol.'">
+                                                          
+                                                            <input type="hidden" name="IdSol" class="form-control" id="IdSol"  value="'.$IdSol.'" >
                                                         </div>
                                                 <div class="col-md-6">
-                                                            <label for="nombre" class="form-label">Nombre de quien autoriza:</label>
-                                                            <input type="text" name="nombre" class="form-control" id="nombre" >
+                                                            
+                                                            <input type="hidden" name="nombre" class="form-control" id="nombre" value="'.$_SESSION['nombre'].'">
                                                         </div>
                                                 
                                                         <div class="col-md-6">
-                                                            <label for="area" class="form-label">Area:</label>
-                                                            <input type="text" name="area" class="form-control" id="area" >
+                                                         
+                                                            <input type="hidden" name="area" class="form-control" id="area" value="'.$_SESSION['area'].'">
                                                         </div>
                                                         <div class="col-md-6">
-                                                            <label for="puesto" class="form-label">Puesto:</label>
-                                                            <input type="text" name="puesto" class="form-control" id="puesto" >
+                                                       
+                                                            <input type="hidden" name="puesto" class="form-control" id="puesto" value="'.$_SESSION['puesto'].'">
                                                         </div>
                                                         <div class="col-md-15">
                                                             <div>
@@ -109,10 +117,7 @@
                                                         </div>
 
                                                          <div >
-                                                            <label class="form-check-label">Firma de Revision</label>
-                                                            <canvas id="canvasFirma" width="500" height="200"></canvas>
-                                                            <input type="hidden" name="firma" id="firmaInput">
-                                                            <button type="button" onclick="limpiarCanvas()">Limpiar</button>
+                                                            <input type="hidden" name="firma" value="'.base64_encode($_SESSION['firma']).'">
                                                          </div>
                     
                                                         <div>

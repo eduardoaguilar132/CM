@@ -1,5 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+    <?php
+session_start();
+
+if (!isset($_SESSION['usu'])) {
+    header("Location: ../Vista/login.php");
+    exit;
+}
+?>  
+
+
+
+
+
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -7,7 +20,7 @@
         <meta name="author" content="" />
         <title>Bienvenido</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="../Recursos/assets/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="Recursos/images/plan.png" />
         <!-- Custom Google font-->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
             <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
@@ -34,13 +47,20 @@
                 <div class="container px-5">
                     <a class="navbar-brand" href="../index.html"><span class="fw-bolder text-primary">PLANELEC</span></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                    
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+                            <li class="nav-item"><a class="nav-link" href="../Modelo/logout.php">Cerrar sesion.</a></li>
+                            
+                        </ul>
+                    </div>
                 </div>
             </nav>
             <!-- Page Content-->
             <div class="container px-10 my-10">
                 <div class="text-center mb-10">
                     <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Solicitudes </span></h1>
+                    <h2>Bienvenid@ Ing. <?php echo $_SESSION['usu']; ?></h2>
+                    <p>Área: <?php echo $_SESSION['area']; ?></p>
                 </div>
                 <div class="row gx-5 justify-content-center">
                     <div class="col-lg-15 col-xl-15 col-xxl-15">
@@ -92,87 +112,100 @@
                                            
                                         </tr>
                                     </tfoot>
-                                    <tbody>
-                                        <?php
-require_once "../Controlador/conexion.php";
-$conexion = conectar_db();
+                                                                        <tbody>
+                                    <?php
+                                    require_once "../Controlador/conexion.php";
+                                    $conexion = conectar_db();
 
-$query = "SELECT * FROM solicitud";
-$consulta1 = $conexion->query($query);
+                                    // Nivel del usuario actual
+                                    $nivel = $_SESSION['niv'];  // Asegúrate que en el login guardas $_SESSION['nivel']
 
-while ($fila = $consulta1->fetch_assoc()) {
+                                    $query = "SELECT * FROM solicitud";
+                                    $consulta1 = $conexion->query($query);
 
-    // Determinar texto y color de fondo según el estatus
-    $estatus_texto = "";
-    $bg_color = "";
+                                    while ($fila = $consulta1->fetch_assoc()) {
 
-    switch ($fila['Estatus']) {
-        case 0:
-            $estatus_texto = "Abierto";
-            $bg_color = "bg-danger"; // rojo
-            break;
-        case 1:
-            $estatus_texto = "En proceso";
-            $bg_color = "bg-warning"; // amarillo
-            break;
-        case 2:
-            $estatus_texto = "Cerrado";
-            $bg_color = "bg-success"; // verde
-            break;
-        default:
-            $estatus_texto = "Desconocido";
-            $bg_color = "bg-secondary"; // gris
-            break;
-    }
+                                        // Determinar texto y color por estatus
+                                        switch ($fila['Estatus']) {
+                                            case 0:  $estatus_texto = "Abierto";      $bg_color = "bg-danger"; break;
+                                            case 1:  $estatus_texto = "En proceso";   $bg_color = "bg-warning"; break;
+                                            case 2:  $estatus_texto = "Cerrado";      $bg_color = "bg-success"; break;
+                                            default: $estatus_texto = "Desconocido";  $bg_color = "bg-secondary"; break;
+                                        }
 
-    // Determinar texto para TA
-    switch ($fila['TA']) {
-        case 1:
-            $tipo_accion = "Creación";
-            break;
-        case 2:
-            $tipo_accion = "Modificación";
-            break;
-        case 3:
-            $tipo_accion = "Eliminación";
-            break;
-        default:
-            $tipo_accion = "Desconocido";
-            break;
-    }
+                                        // Tipo de acción
+                                        switch ($fila['TA']) {
+                                            case 1:  $tipo_accion = "Creación"; break;
+                                            case 2:  $tipo_accion = "Modificación"; break;
+                                            case 3:  $tipo_accion = "Eliminación"; break;
+                                            default: $tipo_accion = "Desconocido"; break;
+                                        }
 
-    echo "<tr>
-   
-         <td>{$fila['IdSol']}</td>
-        <td class='$bg_color text-dark fw-bold text-center'>{$estatus_texto}</td>
-        <td>{$fila['NC']}</td>
-        <td>{$fila['Empresa']}</td>
-        <td>{$fila['Ns']}</td>
-        <td>{$fila['Area']}</td>
-        <td>{$fila['Ps']}</td>
-        <td>{$fila['ND']}</td>
-        <td>{$fila['FechaS']}</td>
-        <td>{$tipo_accion}</td>
-        <td>{$fila['VA']}</td>
-        <td>{$fila['VC']}</td>
-        <td>{$fila['Razon']}</td>
-        <td align='center'>                
-        <a href='A-revision.php?Id=".$fila['IdSol']."'><button type='button' class='btn btn-success'>Revision</button></a>
-        </td>
-        <td align='center'>                
-        <a href='A-autorizacion.php?Id=".$fila['IdSol']."'><button type='button' class='btn btn-success'>Autorizacion</button></a>
-        </td>
-        <td align='center'>                
-        <a href='PdfSol.php?Id=".$fila['IdSol']."'><button type='button' class='btn btn-success'>Formato PDF</button></a>
-        </td>
-        
-    </tr>";
+                                       // ==============================
+                                        // CONTROL DE BOTONES POR NIVEL
+                                        // + CONTROL POR ESTATUS
+                                        // ==============================
+
+                                        $estatus = $fila['Estatus'];
+
+                                      // ============================================
+// BOTÓN REVISIÓN
+// ============================================
+// Solo se revisa si el estatus es 0 (Abierto)
+if ($estatus == 0) {
+    $btnRevision = ($nivel == 0 || $nivel == 1)
+        ? "<a href='A-revision.php?Id={$fila['IdSol']}'><button class='btn btn-success'>Revisión</button></a>"
+        : "<button class='btn btn-secondary' disabled>Revisión</button>";
+} else {
+    $btnRevision = "<button class='btn btn-secondary' disabled>Revisión</button>";
 }
 
-?>
+
+// ============================================
+// BOTÓN AUTORIZACIÓN
+// ============================================
+// Solo se autoriza si:
+// estatus == 1 (significa ya revisado)
+// nivel == 2 o 0
+if ($estatus == 1) {
+    $btnAutorizacion = ($nivel == 0 || $nivel == 2)
+        ? "<a href='A-Autorizacion.php?Id={$fila['IdSol']}'><button class='btn btn-primary'>Autorización</button></a>"
+        : "<button class='btn btn-secondary' disabled>Autorización</button>";
+} else {
+    // Si está en abierto o cerrado → no se autoriza
+    $btnAutorizacion = "<button class='btn btn-secondary' disabled>Autorización</button>";
+}
 
 
+                                        // --- BOTÓN PDF (SIEMPRE HABILITADO) ---
+                                        $btnPDF = "<a href='PdfSol.php?Id={$fila['IdSol']}'><button class='btn btn-danger'>PDF</button></a>";
+
+
+                                        echo "
+                                        <tr>
+                                            <td>{$fila['IdSol']}</td>
+                                            <td class='$bg_color text-dark fw-bold text-center'>{$estatus_texto}</td>
+                                            <td>{$fila['NC']}</td>
+                                            <td>{$fila['Empresa']}</td>
+                                            <td>{$fila['Ns']}</td>
+                                            <td>{$fila['Area']}</td>
+                                            <td>{$fila['Ps']}</td>
+                                            <td>{$fila['ND']}</td>
+                                            <td>{$fila['FechaS']}</td>
+                                            <td>{$tipo_accion}</td>
+                                            <td>{$fila['VA']}</td>
+                                            <td>{$fila['VC']}</td>
+                                            <td>{$fila['Razon']}</td>
+
+                                            <td align='center'>{$btnRevision}</td>
+                                            <td align='center'>{$btnAutorizacion}</td>
+                                            <td align='center'>{$btnPDF}</td>
+                                        </tr>
+                                        ";
+                                    }
+                                    ?>
                                     </tbody>
+
                                 </table>
                                  
                             </div>

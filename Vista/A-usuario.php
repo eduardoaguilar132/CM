@@ -5,9 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Personal - Start Bootstrap Template</title>
+        <title>Alta de Usuario</title>
         <!-- Favicon-->
-       <link rel="icon" type="image/x-icon" href="Recursos/images/plan.png" />
+      <link rel="icon" type="image/x-icon" href="Recursos/images/plan.png" />
         <!-- Custom Google font-->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
             <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
@@ -44,7 +44,7 @@
             <!-- Page Content-->
             <div class="container px-10 my-10">
                 <div class="text-center mb-10">
-                    <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Solicitud</span></h1>
+                    <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Alta de Usuario</span></h1>
                 </div>
                 <div class="row gx-5 justify-content-center">
                     <div class="col-lg-11 col-xl-9 col-xxl-8">
@@ -52,36 +52,24 @@
 
                         <!-- Experience Section-->
                         <section>
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h2 class="text-primary fw-bolder mb-0"X>Alta</h2>
-                            </div>
-
+                         
 
                             <!-- Experience Card 1-->
                             <div class="card shadow border-0 rounded-4 mb-10">
                                 <div class="card-body">
                                     <div class="row align-items-center gx-15">
                                        <div class="body">
-                                            <form id="formFirma" action="/Modelo/A-Solicitud.php" method="POST">
+                                            <form id="formFirma" action="../Modelo/A-Usuario.php" method="POST">
                                                 <div class="row mb-3">
-                                                        <div class="col-md-15">
-                                                            <div>
-                                                                
-                                                                <div class="form-check form-check-inline">
-                                                                    <input type="radio" name="empresa" class="form-check-input" id="Planelec" value="Planelec">
-                                                                    <label for="Planelec" class="form-check-label">Planelec</label>
-                                                                </div>
-                                                                <div class="form-check form-check-inline">
-                                                                    <input type="radio" name="empresa" class="form-check-input" id="Serviplan" value="Serviplan"
-                                                                        checked>
-                                                                    <label for="Serviplan" class="form-check-label">Serviplan</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                             
                                                         <div class="col-md-6">
-                                                            <label for="nombre" class="form-label">Nombre del solicitante:</label>
+                                                            <label for="nombre" class="form-label">Nombre de usuario:</label>
                                                             <input type="text" name="nombre" class="form-control" id="nombre" >
-                                                        </div>
+                                                        </div> 
+                                                         <div class="col-md-6">
+                                                            <label for="usuariolog" class="form-label">usuario para inicio de sesion:</label>
+                                                            <input type="text" name="usuariolog" class="form-control" id="usuariolog" >
+                                                        </div> 
                                                         <div class="col-md-6">
                                                             <label for="area" class="form-label">Area:</label>
                                                             <input type="text" name="area" class="form-control" id="area" >
@@ -90,50 +78,33 @@
                                                             <label for="puesto" class="form-label">Puesto:</label>
                                                             <input type="text" name="puesto" class="form-control" id="puesto" >
                                                         </div>
-                                                        <div class="col-md-12">
-                                                            <label for="nombred" class="form-label">Nombre del Documento:</label>
-                                                            <input type="text" name="nombred" class="form-control" id="nombred" >
-                                                        </div>
-                                                          <div class="col-md-3">
-                                                            <label for="fecha" class="form-label">Fecha de Solicitud:</label>
-                                                            <input  type="date" name="fecha" class="form-control"  id="fecha" name="fecha">
-                                                        </div>
-                                                    <div class="row mb-6">
+                                                         <div class="col-md-6">
+                                                            <label for="pass" class="form-label">Contraseña:</label>
+                                                            <input type="text" name="pass" class="form-control" id="pass    " >
+                                                        </div> 
                                                         <div class="col-md-15">
                                                             <div>
-                                                                <label class="form-label">Tipo de Accion:</label>
+                                                            <label class="form-label"> Nivel:</label>
                                                                 <br>
                                                                 <div class="form-check form-check-inline">
-                                                                    <input type="radio" name="r1" class="form-check-input" id="r1c" value="1">
-                                                                    <label for="r1c" class="form-check-label">Creacion de Documento</label>
+                                                                    <input type="radio" name="re" class="form-check-input" id="revisa" value="1">
+                                                                    <label for="revisa" class="form-check-label">Revisa</label>
                                                                 </div>
                                                                 <div class="form-check form-check-inline">
-                                                                    <input type="radio" name="r1" class="form-check-input" id="r1m" value="2"
+                                                                    <input type="radio" name="re" class="form-check-input" id="autoriza" value="2"
                                                                         checked>
-                                                                    <label for="r1m" class="form-check-label">Modificacion de Documento</label>
+                                                                    <label for="autoriza" class="form-check-label">Autoriza</label>
                                                                 </div>
                                                                 <div class="form-check form-check-inline">
-                                                                    <input type="radio" name="r1" class="form-check-input" id="r1e" value="3"
+                                                                    <input type="radio" name="re" class="form-check-input" id="sp" value="0"
                                                                         checked>
-                                                                    <label for="r1e" class="form-check-label">Eliminacion de Documento</label>
+                                                                    <label for="superuser" class="form-check-label">SuperUser</label>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                         <div class="col-md-6">
-                                                            <label for="ver1" class="form-label">Version actual</label>
-                                                            <input type="text" name="ver1" class="form-control" id="ver1" >
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label for="ver2" class="form-label">Version a la que cambia:</label>
-                                                            <input type="text" name="ver2" class="form-control" id="ver2" >
-                                                        </div>
-                                                        <div class="col-md-15">
-                                                            <label for="razonm" class="form-label">Razon del cambio o creacion del documento:</label>
-                                                            <textarea name="razonm" rows="5" class="form-control" cols="10" ></textarea>
-                                                        </div>
-
                                                          <div >
-                                                            <label class="form-check-label">Firma de usuario</label>
+                                                            <label class="form-check-label">Firma de Usuario</label>
+                                                            <br>
                                                             <canvas id="canvasFirma" width="500" height="200"></canvas>
                                                             <input type="hidden" name="firma" id="firmaInput">
                                                             <button type="button" onclick="limpiarCanvas()">Limpiar</button>
@@ -141,14 +112,14 @@
                     
                                                         <div>
                                                             <br>
-                                                            <button type="submit"  class="btn btn-primary " >generar reporte</button>
+                                                            <button type="submit"  class="btn btn-primary " >guardar</button>
                                                         </div>
 
                   
                                                     </div>
                                                 </div>
                                             </form>
-                                       </div>
+                                       </div> 
                                         
                                     </div>
                                 </div>
