@@ -15,7 +15,7 @@ if (!isset($_SESSION['usu'])) {
         <meta name="author" content="" />
         <title>Personal - Start Bootstrap Template</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="Recursos/images/plan.png" />
+        <link rel="icon" type="image/x-icon" href="../Recursos/images/plan.png" />
         <!-- Custom Google font-->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
             <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">

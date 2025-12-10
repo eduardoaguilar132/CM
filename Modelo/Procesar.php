@@ -40,6 +40,6 @@ if ($result->num_rows === 1) {
     }
 
 } else {
-    echo "<script>alert('Usuario no encontrado'); window.location='../Vista/index.php';</script>";
+    echo "<script>alert('Usuario no encontrado'); window.location='../Vista/login.php';</script>";
 }
 ?>  
