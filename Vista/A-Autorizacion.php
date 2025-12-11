@@ -163,6 +163,40 @@ if (!isset($_SESSION['usu'])) {
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="../Recursos/js/scripts.js"></script>
-        
+      <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const procede = document.getElementById("Procede");
+    const noProcede = document.getElementById("NoProcede");
+    const razonm = document.querySelector("textarea[name='razonm']");
+
+    function actualizarCampos() {
+
+        if (procede.checked) {
+            // Si procede → NO debe dar razón
+            razonm.disabled = true;
+            razonm.value = "";
+            razonm.removeAttribute("required");
+        }
+
+        if (noProcede.checked) {
+            // Si NO procede → razón obligatoria
+            razonm.disabled = false;
+            razonm.setAttribute("required", "required");
+        }
+    }
+
+    // Listeners cuando se cambia la opción
+    procede.addEventListener("change", actualizarCampos);
+    noProcede.addEventListener("change", actualizarCampos);
+
+    // Se ejecuta al cargar la página
+    actualizarCampos();
+
+});
+</script>
+
+
+
     </body>
 </html>

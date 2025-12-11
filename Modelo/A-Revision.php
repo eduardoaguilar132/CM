@@ -2,27 +2,40 @@
 include("../Controlador/conexion.php");
 $conexion = conectar_db();
 
-$IdSol = $_POST['IdSol'];
-$NR    = $_POST['nombre'];
-$AreaR = $_POST['area'];
-$PR    = $_POST['puesto'];
-$PRev  = $_POST['pr'];
-$Nci   = $_POST['nci'];
-$FirmaS = $_POST['firma'];
+// Función que convierte NULL o inexistente en cadena vacía
+function limpiar($campo) {
+    return isset($_POST[$campo]) && $_POST[$campo] !== null ? $_POST[$campo] : "";
+}
 
-// Convertir firma base64 a binario
-$firmaBinaria = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $FirmaS));
+$IdSol  = limpiar('IdSol');
+$NR     = limpiar('nombre');
+$AreaR  = limpiar('area');
+$PR     = limpiar('puesto');
+$PRev   = limpiar('pr');
+$Nci    = limpiar('nci');
+$FirmaS = limpiar('firma');
+
+// Convertir firma base64 a binario (si viene vacía no truena)
+$firmaBinaria = $FirmaS !== "" 
+    ? base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $FirmaS))
+    : "";
 
 // Insertar en tabla revision
 $stmt = $conexion->prepare("INSERT INTO revision (Nrev, ARev, Pr, Prev, Nci, IdSol, FirmaRev) VALUES (?, ?, ?, ?, ?, ?, ?)");
 $stmt->bind_param("ssssssb", $NR, $AreaR, $PR, $PRev, $Nci, $IdSol, $null);
 
-$stmt->send_long_data(6, $firmaBinaria); // índice del parámetro firma
+// Firma — si está vacía manda cadena vacía como binario
+$stmt->send_long_data(6, $firmaBinaria);
 
 if ($stmt->execute()) {
-    // Si se insertó correctamente, actualizar la tabla solicitud
+
+    // Actualizar la solicitud
     $update = $conexion->prepare("UPDATE solicitud SET Estatus = ?, NC = ? WHERE IdSol = ?");
     $estatus = 1;
+
+    // Si NC viene vacío mandamos cadena vacía también
+    $Nci = $Nci === "" ? "" : $Nci;
+
     $update->bind_param("isi", $estatus, $Nci, $IdSol);
 
     if ($update->execute()) {

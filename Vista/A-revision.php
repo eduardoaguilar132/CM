@@ -115,9 +115,19 @@ if (!isset($_SESSION['usu'])) {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-6">
+                                                       <div class="col-md-6">
                                                             <label for="nci" class="form-label">Numero de Identificacion Interna:</label>
-                                                            <input type="text" name="nci" class="form-control" id="nci" >
+                                                            <input 
+                                                                type="text" 
+                                                                name="nci" 
+                                                                class="form-control" 
+                                                                id="nci"
+                                                                disabled
+                                                                minlength="3"
+                                                                maxlength="20"
+                                                                pattern="[A-Za-z0-9\-]+"
+                                                                placeholder="Ej: DOC-123"
+                                                            >
                                                         </div>
 
                                                     <input type="hidden" name="firma" value="'.base64_encode($_SESSION['firma']).'">
@@ -164,6 +174,23 @@ if (!isset($_SESSION['usu'])) {
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="../Recursos/js/scripts.js"></script>
-        
+        <script>
+    const procede = document.getElementById("procede");
+    const nprocede = document.getElementById("nprocede");
+    const nci = document.getElementById("nci");
+
+    // Cuando selecciona "Procede"
+    procede.addEventListener("change", () => {
+        nci.disabled = false;
+        nci.required = true;
+    });
+
+    // Cuando selecciona "No procede"
+    nprocede.addEventListener("change", () => {
+        nci.disabled = true;
+        nci.required = false;
+        nci.value = ""; // limpia
+    });
+</script>
     </body>
 </html>

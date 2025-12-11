@@ -1,34 +1,46 @@
 <?php
-    ini_set('display_errors', 1);
+ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+
 include("../Controlador/conexion.php");
 $conexion = conectar_db();
 
-$IdSol = $_POST["IdSol"];
-$NA    = $_POST["nombre"];
-$AA = $_POST["area"];
-$PA    = $_POST["puesto"];
-$PAA  = $_POST["Procede"];
-$RazonA   = $_POST["razonm"];
-$FirmaS = $_POST["firma"];
+// Función para limpiar campos y evitar NULL
+function limpiar($campo) {
+    return isset($_POST[$campo]) && $_POST[$campo] !== null ? $_POST[$campo] : "";
+}
+
+$IdSol   = limpiar("IdSol");
+$NA      = limpiar("nombre");
+$AA      = limpiar("area");
+$PA      = limpiar("puesto");
+$PAA     = limpiar("Procede");
+$RazonA  = limpiar("razonm");
+$FirmaS  = limpiar("firma");
 
 // Convertir firma base64 a binario
-$firmaBinaria = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $FirmaS));
+$firmaBinaria = $FirmaS !== "" 
+    ? base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $FirmaS))
+    : "";
 
-// Insertar en tabla revision
-$stmt = $conexion->prepare("INSERT INTO autorizacion (NA, AA, PA, PAA, RazonA, FirmaA, IdSol)
-VALUES (?, ?, ?, ?, ?, ?, ?)");
+// Insertar en tabla autorizacion
+$stmt = $conexion->prepare("
+    INSERT INTO autorizacion (NA, AA, PA, PAA, RazonA, FirmaA, IdSol)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+");
 
 $null = NULL;
 
+// FirmaA usa bind_param tipo "b" (blob)
 $stmt->bind_param("sssssbi", $NA, $AA, $PA, $PAA, $RazonA, $null, $IdSol);
 
-// Cargar la firma (blob)
+// Enviar firma binaria (aunque esté vacía)
 $stmt->send_long_data(5, $firmaBinaria);
 
 if ($stmt->execute()) {
-    // Si se insertó correctamente, actualizar la tabla solicitud
+
+    // Actualizar estatus de solicitud
     $update = $conexion->prepare("UPDATE solicitud SET Estatus = ? WHERE IdSol = ?");
     $estatus = 2;
     $update->bind_param("ii", $estatus, $IdSol);
@@ -40,6 +52,7 @@ if ($stmt->execute()) {
     }
 
     $update->close();
+
 } else {
     echo "Error al guardar revisión: " . $stmt->error;
 }
